@@ -60,6 +60,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -404,7 +406,7 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-                
+
                 plugins: [
                   [
                     require.resolve('babel-plugin-named-asset-import'),
@@ -449,7 +451,7 @@ module.exports = function (webpackEnv) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
@@ -514,23 +516,57 @@ module.exports = function (webpackEnv) {
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
             },
-            // Adds support for CSS Modules, but using SASS
-            // using the extension .module.scss or .module.sass
-            {
-              test: sassModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
-                  },
-                },
-                'sass-loader'
-              ),
-            },
+              // Adds support for CSS Modules, but using SASS
+              // using the extension .module.scss or .module.sass
+              {
+                  test: sassModuleRegex,
+                  use: getStyleLoaders(
+                      {
+                          importLoaders: 3,
+                          sourceMap: isEnvProduction
+                              ? shouldUseSourceMap
+                              : isEnvDevelopment,
+                          modules: {
+                              getLocalIdent: getCSSModuleLocalIdent,
+                          },
+                      },
+                      'sass-loader'
+                  ),
+              },
+
+              {
+                  test: lessRegex,
+                  exclude: lessModuleRegex,
+                  use: getStyleLoaders(
+                      {
+                          importLoaders: 3,
+                          sourceMap: isEnvProduction
+                              ? shouldUseSourceMap
+                              : isEnvDevelopment,
+                      },
+                      'less-loader'
+                  ),
+                  // Don't consider CSS imports dead code even if the
+                  // containing package claims to have no side effects.
+                  // Remove this when webpack adds a warning or an error for this.
+                  // See https://github.com/webpack/webpack/issues/6571
+                  sideEffects: true,
+              },
+              {
+                  test: lessModuleRegex,
+                  use: getStyleLoaders(
+                      {
+                          importLoaders: 3,
+                          sourceMap: isEnvProduction
+                              ? shouldUseSourceMap
+                              : isEnvDevelopment,
+                          modules: {
+                              getLocalIdent: getCSSModuleLocalIdent,
+                          },
+                      },
+                      'less-loader'
+                  ),
+              },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.

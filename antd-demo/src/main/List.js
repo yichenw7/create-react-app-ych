@@ -1,9 +1,12 @@
 import React,{Component} from 'react'
+import './index.less'
 
 class List extends Component{
     render(){
         return (
-            <h1>this is List</h1>
+            <div className={'com-list'}>
+                这是一个List
+            </div>
         )
     }
 }

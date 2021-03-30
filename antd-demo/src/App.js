@@ -3,7 +3,7 @@ import { BrowserRouter as Router,Route ,Link} from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import {render} from "@testing-library/react";
-import List from './List'
+import List from './main/List'
 
 class App extends Component {
   render() {
