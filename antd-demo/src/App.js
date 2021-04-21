@@ -3,7 +3,7 @@ import { BrowserRouter as Router,Route ,Link} from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
 // import {render} from "@testing-library/react";
-import List from './main/List'
+import Chip from './containers/chip/saga-test'
 // import Demo from './main/demo'
 
 
@@ -13,12 +13,7 @@ class App extends Component {
         <div className="App">
             <Router>
                 <div>
-                    <h1>App</h1>
-                    <ul>
-                        <li><Link to="/list">List</Link></li>
-                    </ul>
-                    <hr/>
-                    <Route path="/list" component={List} />
+                  <Route path="/chip" component={Chip} />
                 </div>
             </Router>
         </div>
