@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import { BrowserRouter as Router,Route ,Link} from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
+import "antd/dist/antd.css";
 // import {render} from "@testing-library/react";
-import Chip from './containers/chip/saga-test'
+import Chip from './containers/chip'
 // import Demo from './main/demo'
-
 
 class App extends Component {
   render() {

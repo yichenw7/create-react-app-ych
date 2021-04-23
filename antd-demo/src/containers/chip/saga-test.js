@@ -1,8 +1,7 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux';
 import { increate, increateAsync, fetch_user } from '../../actions/counter';
-
-
+import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
 
 class SagaTest extends Component{
   render(){

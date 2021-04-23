@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import FirstHock from '../../containers/chip/first-hock'
+import FirstHock from '../first-hock'
 // 引入 useState
 
 function Demo() {
