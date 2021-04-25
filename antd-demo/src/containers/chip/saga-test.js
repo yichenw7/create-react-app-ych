@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux';
 import { increate, increateAsync, fetch_user } from '../../actions/counter';
-import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+import {bindActionCreators} from 'redux';
+// import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
 
 class SagaTest extends Component{
   render(){
@@ -38,4 +39,24 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { increate, increateAsync, fetch_user })(SagaTest);
+// 一 基础方式
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     increate: (...args) => dispatch(increate(...args)),
+//     increateAsync: (...args) => dispatch(increateAsync(...args)),
+//     fetch_user: (...args) => dispatch(fetch_user(...args)),
+//   }
+// }
+
+// 二 bindActionCreators包装dispatch方式
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return bindActionCreators({
+//     increate: increate,
+//     increateAsync: increateAsync,
+//     fetch_user: fetch_user,
+//   }, dispatch);
+// }
+
+// 三 connect 中 执行 bindActionCreators
+
+export default connect(mapStateToProps, {increate, increateAsync, fetch_user})(SagaTest);
